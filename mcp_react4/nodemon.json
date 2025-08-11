@@ -1,0 +1,6 @@
+{
+  "watch": ["src"],
+  "ext": "ts,tsx,js,jsx,css", 
+  "ignore": ["src/lib/**/*.txt"],
+  "exec": "bun run build && bun run ./dist/index.js"
+}
