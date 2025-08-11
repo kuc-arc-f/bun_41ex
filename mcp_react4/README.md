@@ -40,7 +40,7 @@ CSV_PATH_BASE="http://localhost:3000/data/"
 ***
 ### blog
 
-* 
+https://zenn.dev/knaka0209/scraps/6112abd71c6343
 
 ***
 # License
