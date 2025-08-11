@@ -33,7 +33,7 @@ ADK_API_URL="http://localhost:8000"
 ***
 ### blog
 
-* 
+https://zenn.dev/link/comments/9031296cc4a427 
 
 ***
 # License
