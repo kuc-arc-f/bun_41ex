@@ -13,6 +13,12 @@ bun , example
 * bun:1.2.20
 
 ***
+* mcp-cli-16: ollama + LLM: qwen3:8b , React SQLite CLI
+* mcp_react4: MCP client , Bun + React UI
+* mcp_react6: Google ADK, React
+* mcp_react8: SQLite mcp-ui , ollama + LLM: qwen3:8b
+
+***
 ### blog
 
 * 
