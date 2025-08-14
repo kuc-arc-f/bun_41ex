@@ -4,7 +4,7 @@
 
  date    : 2025/08/10
 
- update : 2025/08/13 
+ update : 2025/08/14
 
 ***
 
@@ -20,8 +20,6 @@ bun , example
 
 ***
 ### blog
-
-* 
 
 ***
 # License

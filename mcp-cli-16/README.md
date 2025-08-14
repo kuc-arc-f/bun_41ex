@@ -40,7 +40,7 @@ https://orm.drizzle.team/docs/get-started/sqlite-new
 ***
 ### blog
 
-* 
+https://zenn.dev/link/comments/bee571875a9987
 
 ***
 # License
