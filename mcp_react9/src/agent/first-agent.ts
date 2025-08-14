@@ -6,8 +6,8 @@ export function firstAgent(inputText){
     let text = "";
     const items = [
       { text: "firstGetRandom サイコロを回して欲しい 面数 6", title: "Step1: サイコロを振ります。" + "\n"} , 
-      { text: "firstGetDate 本日の 日付を返す。", title: "Step2: 現在の 日付を返します。" + "\n"} , 
-      { text: "firstGetTime 現在の 時間を返す", title: "Step3: 現在の 時間を返します。" + "\n"} , 
+      { text: "本日の 年月日を教えて欲しい", title: "Step2: 現在の 年月日を返します。" + "\n"} , 
+      { text: "現在の 時間を教えて欲しい", title: "Step3: 現在の 時間を返します。" + "\n"} , 
     ];
 
     return items;

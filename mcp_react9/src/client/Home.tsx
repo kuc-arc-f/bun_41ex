@@ -41,14 +41,6 @@ export default function Chat() {
         if(agentName === "todo-agent"){
           items = todoAgent();
         }
-        /*
-        if(agentName === "price-list-up-agent"){
-          items = PriceListUpAgent(inText);
-        }
-        if(agentName === "price-list-updown-agent"){
-          items = PriceListUpdownAgent(inText);
-        }
-        */
         console.log(items);
 
         let htmAll = "";
@@ -102,6 +94,25 @@ export default function Chat() {
       <div className="flex flex-col gap-2 px-4 bg-white">
         <h1 className="text-2xl font-bold">Agent-Chat</h1>
         <hr className="my-2" />
+        <label for="pet-select">* Agent:</label>
+        <select name="pets" id="input_text"
+        className="
+        p-2 bg-gray-100
+        block
+        w-full
+        rounded-md
+        border-gray-300
+        shadow-sm
+        focus:border-indigo-300
+        focus:ring
+        focus:ring-indigo-200
+        focus:ring-opacity-50
+        ">
+          <option value="todo-agent">todo-agent</option>
+          <option value="first-agent">first-agent</option>
+        </select>
+{/*
+        <option value="">--Please choose--</option>
         <span>* Agent</span>
         <input
           id="input_text"
@@ -110,6 +121,7 @@ export default function Chat() {
           className="w-full p-2 border border-gray-300 rounded dark:disabled:bg-gray-700"
           placeholder="Type your message..."
         />
+*/}
         <hr className="my-2" />
         <span>Todo Input</span>
         <input
