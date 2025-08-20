@@ -1,0 +1,41 @@
+{
+  "name": "pglite-4",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+    "scripts": {
+    "build": "bun run build:js && bun run build:css",
+    "build:server": "bunx esbuild --bundle --format=esm --platform=node ./src/index.ts  --outfile=./dist/index.js",
+    "build:js": "bunx esbuild --bundle src/entry-client.tsx --minify --outfile=./public/static/entry-client.js",
+    "build:css": "bunx @tailwindcss/cli -i ./src/main.css -o ./public/static/main.css",
+    "start": "bun run ./src/index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/express": "^4.17.17",
+    "@types/react": "^19.1.4",
+    "@types/react-dom": "^19.1.4",
+    "esbuild": "^0.25.8",
+    "globals": "^16.1.0",
+    "nodemon": "^3.1.0",
+    "rimraf": "^5.0.5"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.3.7",
+    "@tailwindcss/cli": "^4.1.8",
+    "axios": "^1.6.5",
+    "cookie-parser": "^1.4.6",
+    "date-fns": "^4.1.0",
+    "dayjs": "^1.11.13",
+    "dotenv": "^17.2.1",
+    "express": "^4.18.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^6.21.2",
+    "tailwindcss": "^4.1.8",
+    "zod": "^3.25.56"
+  }
+}
