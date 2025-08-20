@@ -4,7 +4,7 @@
 
  date    : 2025/08/10
 
- update : 2025/08/14
+ update : 2025/08/18
 
 ***
 
@@ -18,6 +18,7 @@ bun , example
 * mcp_react6: Google ADK, React
 * mcp_react8: SQLite mcp-ui , ollama + LLM: qwen3:8b
 * mcp_react9: SQLite mcp-ui , LLM: gemini
+* pglite-4: PGLite WASM (postgres) React + express
 
 ***
 ### blog
