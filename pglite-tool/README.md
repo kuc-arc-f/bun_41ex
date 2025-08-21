@@ -21,7 +21,7 @@ DATA_DIR="/path/pgdata"
 * dev-start
 
 ```
-npm run start
+bun run start
 ```
 * input SQL , 1 input [Return] key
 ```
