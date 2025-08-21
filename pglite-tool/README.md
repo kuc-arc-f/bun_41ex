@@ -35,4 +35,6 @@ SELECT COUNT(*) FROM todo;
 ***
 ### blog 
 
+https://zenn.dev/link/comments/f185197af75e9a
+
 ***
