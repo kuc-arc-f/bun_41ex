@@ -2,13 +2,13 @@
 
  Version: 0.9.1
 
- date    : 2025/08/19
+ date    : 2025/08/24
  
  update  :
 
 ***
 
-Bun + PGLite WASM (postgres) React + express
+Bun + PGLite WASM (postgres) drizzle , React + express
 
 ***
 ### Setup
@@ -23,7 +23,8 @@ DATA_DIR="/path/pgdata"
 * init-db
 
 ```
-bun run ./db_init.js
+bunx drizzle-kit generate
+bunx drizzle-kit migrate
 ```
 ***
 * build, dev-start

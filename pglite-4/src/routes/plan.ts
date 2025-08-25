@@ -1,22 +1,27 @@
 import express from 'express';
-const router = express.Router();
-import axios from 'axios';
 import { PGlite } from '@electric-sql/pglite'
+import { eq } from "drizzle-orm";
+import { drizzle } from 'drizzle-orm/pglite';
+import { plan } from "../schema";
+
+const router = express.Router();
+const DATA_DIR = process.env.DATA_DIR;
 
 router.post('/create', async function(req: any, res: any) {
-  const db = new PGlite(process.env.DATA_DIR);
+  const db = drizzle(DATA_DIR);
   try {
     const body = req.body;
-    console.log(body);
+    //console.log(body);
     const { user_id, content, p_date } = req.body;
-    await db.query(
-      'INSERT INTO plan (user_id, content, p_date) VALUES ($1, $2, $3);',
-      [user_id, content, p_date]
-    );
-    db.close();
+    const new_p_date = new Date(p_date);
+    const target = { 
+      user_id, content, p_date: new_p_date 
+    }
+    console.log(target);
+    await db.insert(plan).values(target);
+
     return res.json({ret:200 , data:{}});
   } catch (error) {
-    db.close();
     console.error(error);
     res.sendStatus(500);
   }
@@ -39,7 +44,7 @@ router.post('/list_range', async function(req: any, res: any) {
       ;
     `,
     [body.start, body.end, body.user_id])
-    console.log(ret.rows)
+    //console.log(ret.rows)
     db.close();
     return res.json({ret:200 , data:ret.rows });
   } catch (error) {
@@ -65,35 +70,31 @@ router.get('/list', async function(req: any, res: any) {
   }
 });
 router.post('/delete', async function(req: any, res: any) {
-  const db = new PGlite(process.env.DATA_DIR);
+  const db = drizzle(DATA_DIR);
   try {
     const body = req.body;
-    //console.log("url=", process.env.API_URL);
 console.log(body);
-    await db.exec(`
-    DELETE FROM plan WHERE id = ${body.id};
-    `);
-    db.close();
+      const deleteItem = await db
+      .delete(plan)
+      .where(eq(plan.id, body.id));
     return res.json({ret:200 , data:{}});
   } catch (error) {
-    db.close();
     console.error(error);
     res.sendStatus(500);
   }
 });
 
 router.post('/update', async function(req: any, res: any) {
-  const db = new PGlite(process.env.DATA_DIR);
+  const db = drizzle(DATA_DIR);
   try {
     const body = req.body;
     console.log(body);
-    await db.exec(`
-    UPDATE plan SET content = '${body.content}' WHERE id = ${body.id};
-    `);
-    db.close();
+    const updateItem = await db
+      .update(plan)
+      .set({ content: body.content })
+      .where(eq(plan.id, body.id));
     return res.json({ret:200 , data:{}});
   } catch (error) {
-    db.close();
     console.error(error);
     res.sendStatus(500);
   }
