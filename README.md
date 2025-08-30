@@ -4,7 +4,7 @@
 
  date    : 2025/08/10
 
- update : 2025/08/18
+ update : 2025/08/30
 
 ***
 
@@ -19,7 +19,7 @@ bun , example
 * mcp_react8: SQLite mcp-ui , ollama + LLM: qwen3:8b
 * mcp_react9: SQLite mcp-ui , LLM: gemini
 * pglite-4: PGLite WASM (postgres) React + express
-
+* pglite-tool: PGLite WASM  , SQL tool
 ***
 ### blog
 
