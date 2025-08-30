@@ -3,6 +3,7 @@ import readline from 'node:readline';
 import 'dotenv/config';
 import { PGlite } from '@electric-sql/pglite'
 console.log("DATA_DIR=", process.env.DATA_DIR);
+console.log("VER= 0.9.3");
 
 
 const startTool = async function(input){
@@ -21,10 +22,12 @@ const startTool = async function(input){
       const ret = await db.query(`
         ${sql}
       `)
+      db.close();
       console.log(ret.rows)
     }else{
       console.log("result:");
-      await db.exec(`${sql}`);      
+      await db.exec(`${sql}`);     
+      db.close(); 
     }
   }catch(e){ console.error(e); }
 }
