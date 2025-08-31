@@ -4,7 +4,7 @@
 
  date    : 2025/08/20
  
- update  :
+ update  : 2025/08/30
 
 ***
 
@@ -31,6 +31,18 @@ input:
 SELECT COUNT(*) FROM todo;
 1
 ```
+***
+* table list
+```
+bun run list
+```
+
+* desc table , tablename  input
+```
+bun run desc
+```
+
+***
 
 ***
 ### blog 
