@@ -38,4 +38,6 @@ bun run import.ts
 ***
 ### blog 
 
+https://zenn.dev/link/comments/bf90276f75c396
+
 ***

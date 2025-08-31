@@ -3,8 +3,10 @@ import fs from 'node:fs/promises'
 console.log("DATA_DIR=", process.env.DATA_DIR);
 import 'dotenv/config';
 import ExportUtil from './src/ExportUtil';
+import { createInterface } from "node:readline/promises";
 
-async function main() {
+
+async function exportMain(tablename) {
   let dump = "";
   
   try {
@@ -15,8 +17,6 @@ async function main() {
     }
     const db = await new PGlite(process.env.DATA_DIR);
     
-    const tablename = "item";
-
     // SERIAL TABLE Check
     //serial_contain = await ExportUtil.serial_validate(db , tablename);
     //console.log("serial_contain=" , serial_contain );  
@@ -69,11 +69,35 @@ async function main() {
 
     dump += "\n";
     console.log(dump);
+    db.close();
     await fs.writeFile('./dump.sql', dump);
   } catch (err) {
     console.error(err);
   }
 
 }
-main()
 
+const rl = createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+async function main() {
+  while (true) {
+    const input = await rl.question("table_name:");
+    if (input === "exit") {
+      break;
+    }
+    console.log("input=", input);
+    exportMain(input);
+    break;
+
+    rl.write("\n");
+  }
+}
+main().catch((err) => {
+    console.error("Error:", err);
+})
+.finally(() => {
+  rl.close();
+});
