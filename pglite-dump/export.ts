@@ -36,6 +36,8 @@ async function exportMain(tablename) {
         col_name += `to_char(${col.column_name} ,'YYYY-MM-DD"T"HH24:MI:SS.US') as ${col.column_name},`;
       }else if(col.data_type === "timestamp with time zone"){
         col_name += `to_char(${col.column_name} ,'YYYY-MM-DD"T"HH24:MI:SS.US') as ${col.column_name},`;
+      }else if(col.data_type === "date"){
+        col_name += `to_char(${col.column_name} , 'YYYY-MM-DD') as ${col.column_name},`;
       }else{
         col_name += `${col.column_name} ,`;
       }
