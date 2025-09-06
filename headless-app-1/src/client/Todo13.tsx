@@ -36,7 +36,7 @@ const App: React.FC = () => {
     title: '',
     content: '',
     content_type: '',
-    is_public: false,
+    is_public: "off",
     food_orange: false,
     food_apple: false,
     food_banana: false,
@@ -106,6 +106,7 @@ const App: React.FC = () => {
         ...currentItem,
         [name]: value
       });
+      console.log(currentItem);
     } else {
       setCurrentItem({
         ...currentItem,
@@ -171,7 +172,7 @@ const App: React.FC = () => {
       title: '',
       content: '',
       content_type: '',
-      is_public: false,
+      is_public: "off",
       food_orange: false,
       food_apple: false,
       food_banana: false,
@@ -192,6 +193,7 @@ const App: React.FC = () => {
     });
     setErrors({});
     setIsModalOpen(true);
+    console.log(currentItem);
   };
 
   // 編集
@@ -338,7 +340,7 @@ const App: React.FC = () => {
                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <span className={`relative inline-block px-3 py-1 font-semibold leading-tight ${item.data.is_public ? 'text-green-900' : 'text-red-900'}`}>
                     <span className={`absolute inset-0 opacity-50 rounded-full ${item.is_public ? 'bg-green-200' : 'bg-red-200'}`}></span>
-                    <span className="relative">{item.is_public ? '公開中' : '非公開'}</span>
+                    <span className="relative">{item.data.is_public === 'on' ? '公開中' : '非公開'}</span>
                   </span>
                 </td>
                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -432,8 +434,8 @@ const App: React.FC = () => {
                       <input
                         type="radio"
                         name="is_public"
-                        value={false}
-                        checked={currentItem.is_public === false}
+                        value="off"
+                        checked={currentItem.is_public === "off"}
                         onChange={handleInputChange}
                         className="form-radio"
                       />
@@ -443,8 +445,8 @@ const App: React.FC = () => {
                       <input
                         type="radio"
                         name="is_public"
-                        value={true}
-                        checked={currentItem.is_public === true}
+                        value="on"
+                        checked={currentItem.is_public === "on"}
                         onChange={handleInputChange}
                         className="form-radio"
                       />
