@@ -8,11 +8,12 @@
 
 ***
 
-PGLite + Bun , Headless CMS , 
+PGLite WASM + Bun , Headless CMS , 
 
 ***
 ### API document
 
+https://github.com/kuc-arc-f/bun_41ex/blob/main/headless-2025-pg/document/api.md
 
 ***
 ### setup
