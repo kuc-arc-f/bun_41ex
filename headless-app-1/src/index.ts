@@ -7,6 +7,7 @@ import 'dotenv/config'
 
 import Top from './pages/App';
 import todoRouter from './routes/todos';
+import todo13Router from './routes/todo13';
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -19,6 +20,7 @@ const errorObj = {ret: "NG", messase: "Error"};
 
 // API
 app.use('/api/todos', todoRouter);
+app.use('/api/todo13', todo13Router);
 
 // SPA
 app.get('/*', (req: any, res: any) => {
