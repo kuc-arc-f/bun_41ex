@@ -29,6 +29,34 @@ router.get('/list', async function(req: any, res: any) {
   }
 });
 
+/**
+*
+* @param
+*
+* @return
+*/
+router.get('/getone', async function(req: any, res: any) {
+  const db = new PGlite(process.env.DATA_DIR);
+  try {
+    const id = req.query.id;
+    console.log("id=" , id)
+    const ret = await db.query(`
+      SELECT * FROM hcm_data WHERE id='${id}';
+    `)
+    let out = [];
+    if(ret.rows[0]){
+      out = ret.rows[0];
+    }
+    console.log(ret.rows)
+    db.close();
+    return res.json({ret:200 , data: out });
+  } catch (error) {
+    db.close();
+    console.error(error);
+    res.sendStatus(500);
+  }
+});
+
 router.post('/create', async function(req: any, res: any) {
   const db = new PGlite(process.env.DATA_DIR);
   try {
