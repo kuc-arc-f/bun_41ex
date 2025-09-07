@@ -10,6 +10,16 @@
 ```
 curl -H "Authorization: your-key" http://localhost:3000/api/data/list?content=todo
 ```
+
+***
+* order (option)
+* curl sample
+* your-key: API_KEY 
+* order: asc (created_at ASC ) desc (created_at DESC)
+
+```
+curl -H "Authorization: your-key" "http://localhost:3000/api/data/list?content=test1&order=asc"
+```
 ***
 * node.js: List
 
@@ -32,6 +42,17 @@ const start = async function() {
   }catch(e){console.log(e)}
 }
 start();
+```
+
+***
+### GetOne
+
+* curl sample
+* your-key: API_KEY 
+* id: id data
+
+```
+curl -H "Authorization: your-key" http://localhost:3000/api/data/getone?id=0facf5c6-9189-4c0a-a8e6-c2b29312c5a7
 ```
 
 ***
