@@ -12,13 +12,23 @@ import { PGlite } from '@electric-sql/pglite'
 router.get('/list', async function(req: any, res: any) {
   const db = new PGlite(process.env.DATA_DIR);
   try {
+    //console.log(req.query);
     const content = req.query.content;
-    console.log("content=" , content)
-    const ret = await db.query(`
-      SELECT id, content, data ,created_at, updated_at 
+    let get_order = req.query.order;
+    let order_sql = "ASC";
+
+    console.log("content=" , content);
+    console.log("get_order=" , get_order);
+    if(get_order !== "asc"){
+      order_sql = "DESC";
+    }
+    const sql = `SELECT id, content, data ,created_at, updated_at 
       FROM hcm_data
-      WHERE content = '${content}'      
-    `)
+      WHERE content = '${content}' ORDER BY created_at ${order_sql};  
+    `;
+    console.log("dbg=" , sql)
+
+    const ret = await db.query(sql)
     console.log(ret.rows)
     db.close();
     return res.json({ret:200 , data:ret.rows });
