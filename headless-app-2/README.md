@@ -29,6 +29,7 @@ bun run dev
 ***
 ### blog
 
-* 
+https://zenn.dev/link/comments/cccb1b852eb6a5
 
+***
 
