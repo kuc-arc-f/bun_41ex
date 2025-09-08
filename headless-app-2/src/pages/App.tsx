@@ -1,0 +1,28 @@
+import * as React from 'react';
+
+console.log("env=", process.env.NODE_ENV)
+
+export default function Page() { 
+  return (
+  <html>
+    <head>
+      <title>welcome</title>
+      {(process.env.NODE_ENV === "production") ? (
+          <link href="/public/static/main.css" rel="stylesheet" /> 
+      ): (
+          <link href="/static/main.css" rel="stylesheet" /> 
+      )} 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.13.0/sql-wasm.js"></script>
+    </head>
+    <body>
+      <div id="app"></div>
+      {(process.env.NODE_ENV === "production") ? (
+          <script type="module" src="/public/static/entry-client.js"></script>
+      ): (
+          <script type="module" src="/static/entry-client.js"></script>
+      )}
+    </body>
+
+  </html>
+  );
+}
