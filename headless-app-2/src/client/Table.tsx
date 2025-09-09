@@ -1,19 +1,47 @@
+//import React from "react";
 import React, { useState, useEffect } from 'react';
 import { Item, NewItem } from './types/Item';
 import { itemsApi } from './Sort/api';
 import ItemDialog from './Sort/ItemDialog';
 import dbUtil from './Sort/db';
+
+import {
+  useReactTable,
+  getCoreRowModel,
+  getPaginationRowModel,
+  flexRender,
+  ColumnDef,
+} from "@tanstack/react-table";
 import Head from '../components/Head';
 let sqlDb = null;
 let sortName = "asc";
 let sortAge = "asc";
 let sortWeight = "asc";
+const CONTENT = "sort";
 
-const CONTENT = "todos";
+type Person = {
+  id: number;
+  name: string;
+  age: number;
+  weight: number;
+};
 
+const defaultData: Person[] = Array.from({ length: 42 }, (_, i) => ({
+  id: i + 1,
+  name: `User ${i + 1}`,
+  age: 20 + (i % 15),
+  weight: i + 1,
+}));
 
-function App() {
-  const [items, setItems] = useState<Item[]>([]);
+const columns: ColumnDef<Person>[] = [
+  { header: "ID", accessorKey: "id" },
+  { header: "Name", accessorKey: "name" },
+  { header: "Age", accessorKey: "age" },
+  { header: "Weight", accessorKey: "weight" },
+];
+
+export default function App() {
+  const [data] = React.useState(() => [...defaultData]);
   const [dbItems, setDbItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -21,15 +49,13 @@ function App() {
   const [dialogMode, setDialogMode] = useState<'create' | 'edit'>('create');
   const [editingItem, setEditingItem] = useState<Item | undefined>();
   const [updatetime, setUpdatetime] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");    
+  //console.log(data);
 
-  // アイテム一覧を取得
   const fetchItems = async () => {
     try {
       setLoading(true);
       const data = await itemsApi.getAll(CONTENT);
-      //console.log(data);
-      //setItems(data);
       sqlDb = await dbUtil.init();
       await dbUtil.addItem(sqlDb, data);
       const target = await dbUtil.getItems(sqlDb);
@@ -46,6 +72,13 @@ function App() {
   useEffect(() => {
     fetchItems();
   }, []);
+  
+  const table = useReactTable({
+    data: dbItems,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(), // ページネーション追加
+  });
 
   // 新規作成ダイアログを開く
   const handleCreate = () => {
@@ -134,19 +167,12 @@ function App() {
     }catch(e){console.error(e);}
   }
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="text-xl">読み込み中...</div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-gray-100 pt-2 pb-8">
       <Head />
       <div className="max-w-6xl mx-auto px-4">
-        <div className="bg-white rounded-lg shadow">
+        <div className="bg-white rounded-lg shadow pb-8">
+          {/*  */}
           <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
             <h1 className="text-2xl font-bold text-gray-900">Sort</h1>
             <button
@@ -156,13 +182,11 @@ function App() {
               新規作成
             </button>
           </div>
-
           {error && (
             <div className="mx-6 mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
               {error}
             </div>
           )}
-
           <div className="px-6 py-2 border-b border-gray-200 flex justify-between items-center">
             Search:
             <input
@@ -175,83 +199,87 @@ function App() {
             <button onClick={() => {handleSearch();}}
               className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
             >Search</button>
-          </div>
+          </div>          
 
-          <div className="p-6">
-            {dbItems.length === 0 ? (
-              <div className="text-center py-8 text-gray-500">
-                アイテムがありません
-              </div>
-            ) : (
-              <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        ID
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        name
+          <table className="border border-gray-300 w-full">
+            <thead>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id} className="bg-gray-100">
+                  {headerGroup.headers.map((header) => (
+
+                    <th key={header.id} className="border p-2 text-left">
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(header.column.columnDef.header, header.getContext())}
+                      {header.id === "name" ? (<span>
                         <button onClick={() => { sortStart("name", sortName); }}>
                           <span className="ms-2 text-green-600">sort</span>
                         </button>
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        age
+                      </span>) : ""}
+                      {header.id === "age" ? (<span>
                         <button onClick={() => { sortStart("age", sortAge); }}>
                           <span className="ms-2 text-green-600">sort</span>
                         </button>
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        weight
+                      </span>) : ""}                      
+                      {header.id === "weight" ? (<span>
                         <button onClick={() => { sortStart("weight", sortWeight); }}>
                           <span className="ms-2 text-green-600">sort</span>
                         </button>
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        操作
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {dbItems.map((item) => (
-                      <tr key={item.id}>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                          {item.id}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                          {item.name}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {item.age}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {item.weight}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                          {/*
-                          <button
-                            onClick={() => handleEdit(item)}
-                            className="text-indigo-600 hover:text-indigo-900 mr-4"
-                          >
-                            編集
-                          </button>
-                          */}
-                          <button
-                            onClick={() => handleDelete(item.id)}
-                            className="text-red-600 hover:text-red-900"
-                          >
-                            削除
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
+                      </span>) : ""}                      
+
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+            <tbody>
+              {table.getRowModel().rows.map((row) => (
+                <tr key={row.id}>
+                  {row.getVisibleCells().map((cell) => (
+                    <td key={cell.id} className="border p-2">
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+            {/* ページネーション UI */}
+          <div className="flex items-center gap-2 mt-4">
+            <button
+              className="px-2 py-1 border rounded disabled:opacity-50"
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+            >
+              ← 前へ
+            </button>
+            <button
+              className="px-2 py-1 border rounded disabled:opacity-50"
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+            >
+              次へ →
+            </button>
+            <span className="ml-2">
+              Page{" "}
+              <strong>
+                {table.getState().pagination.pageIndex + 1} / {table.getPageCount()}
+              </strong>
+            </span>
+            <select
+              className="ml-2 border p-1"
+              value={table.getState().pagination.pageSize}
+              onChange={(e) => table.setPageSize(Number(e.target.value))}
+            >
+              {[5, 10, 20].map((pageSize) => (
+                <option key={pageSize} value={pageSize}>
+                  {pageSize} rows
+                </option>
+              ))}
+            </select>
+          </div>            
         </div>
+
       </div>
 
       <ItemDialog
@@ -260,9 +288,7 @@ function App() {
         onSave={handleSave}
         item={editingItem}
         mode={dialogMode}
-      />
+      />      
     </div>
   );
 }
-
-export default App;

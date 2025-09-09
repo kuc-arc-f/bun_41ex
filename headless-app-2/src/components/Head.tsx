@@ -6,6 +6,7 @@ function Page() {
     <div>
         <Link to="/">Home</Link>
         <Link to="/sort" class="ms-2">[ sort ]</Link>
+        <Link to="/table" class="ms-2">[ table ]</Link>
         <Link to="/about" class="ms-2">[ about ]</Link>
         <hr />
     </div>

@@ -30,7 +30,7 @@ router.post('/list', async function(req: any, res: any) {
     }
     const json = await response.json();
     //console.log(json)   
-    res.send({ret: 200, data: json.data});
+    res.send({ret: 200, data: json});
   } catch (error) {
     console.error(error);
     res.sendStatus(500);

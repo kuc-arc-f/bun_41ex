@@ -15,10 +15,11 @@ export const itemsApi = {
       throw new Error('Failed to create item');
     }    
     const json = await response.json();
+    //console.log(json);
     let dataValue = {};
     const newItems = [];
     json.data.forEach((element) => {
-      //console.log(element.data);
+      //console.log(element);
       try{
         dataValue = JSON.parse(element.data);
         element.data = dataValue;

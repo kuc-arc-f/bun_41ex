@@ -8,7 +8,7 @@ const dbUtil = {
       });
       const sqldb = new sql.Database();
       sqldb.run(`CREATE TABLE IF NOT EXISTS items (
-          id TEXT,
+          id INTEGER,
           name TEXT,
           age INTEGER,
           weight INTEGER
@@ -29,7 +29,7 @@ const dbUtil = {
         let sql = `INSERT INTO items (id, name, age ,weight)
          VALUES 
          (
-         '${element.id}', 
+         ${element.id}, 
          '${element.data.name}' , 
          ${element.data.age} ,
          ${element.data.weight}
@@ -106,6 +106,39 @@ const dbUtil = {
     }catch(e){
       console.log(e);
       throw new Error("error, sortItem")
+    }
+
+  },
+
+  
+  searchItem: async function(db: any, value: string) {
+    try{
+      const sql = `SELECT id, name, age ,weight FROM items
+      WHERE name like '%${value}%'
+      ;`;
+      console.log(sql);
+
+      const res = await db.exec(sql);
+      console.log(res);
+      if(!res[0]){
+        return [];
+      }
+      const out = [];
+      res[0].values.forEach((row) => {
+        //console.log(row);
+        let target = {
+          id: row[0], 
+          name: row[1], 
+          age: row[2] ,
+          weight: row[3]
+        }
+        out.push(target)
+      })
+
+      return out;
+    }catch(e){
+      console.log(e);
+      throw new Error("error, searchItem")
     }
 
   },
