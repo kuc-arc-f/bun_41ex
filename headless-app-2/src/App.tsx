@@ -9,6 +9,7 @@ import About from './client/about';
 import Todo13 from './client/Todo13';
 import Sort from './client/Sort';
 import Table from './client/Table';
+import Table1 from './client/Table1';
 
 function Home() {
   return (
@@ -29,6 +30,7 @@ function App() {
       <Route path="/todo13" element={<Todo13 />} />
       <Route path="/sort" element={<Sort />} />
       <Route path="/table" element={<Table />} />
+      <Route path="/table1" element={<Table1 />} />
     </Routes>
   );
 }

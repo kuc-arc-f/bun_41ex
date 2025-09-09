@@ -40,11 +40,17 @@ const columns: ColumnDef<Person>[] = [
     header: "Email",
     accessorKey: "email",
   },
+  {
+    header: "表示",
+    id: "display",
+    cell: ({ row }) => (
+      <button onClick={() => alert(row.original.id)}>表示</button>
+    ),
+  },
 ];
 
 export default function App() {
   const [data] = React.useState(() => [...defaultData]);
-
   // table インスタンス作成
   const table = useReactTable({
     data,

@@ -33,12 +33,6 @@ const defaultData: Person[] = Array.from({ length: 42 }, (_, i) => ({
   weight: i + 1,
 }));
 
-const columns: ColumnDef<Person>[] = [
-  { header: "ID", accessorKey: "id" },
-  { header: "Name", accessorKey: "name" },
-  { header: "Age", accessorKey: "age" },
-  { header: "Weight", accessorKey: "weight" },
-];
 
 export default function App() {
   const [data] = React.useState(() => [...defaultData]);
@@ -73,6 +67,20 @@ export default function App() {
     fetchItems();
   }, []);
   
+  const columns: ColumnDef<Person>[] = [
+    { header: "ID", accessorKey: "id" },
+    { header: "Name", accessorKey: "name" },
+    { header: "Age", accessorKey: "age" },
+    { header: "Weight", accessorKey: "weight" },
+    {
+      header: "操作",
+      id: "display",
+      cell: ({ row }) => (
+        <button onClick={() => handleDelete(row.original.id)}>[ delete ]</button>
+      ),
+    },  
+  ];
+
   const table = useReactTable({
     data: dbItems,
     columns,
