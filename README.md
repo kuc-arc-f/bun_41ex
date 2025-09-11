@@ -1,6 +1,6 @@
 ﻿# bun_41ex
 
- Version: 0.9.1
+ Version: 0.9.2
 
  date    : 2025/08/10
 
@@ -31,6 +31,7 @@ bun , example
 ***
 ### changeLog
 
+* VER 0.9.2: fix , headless-2025-pg
 * VER 0.9.1: new
 
 ***

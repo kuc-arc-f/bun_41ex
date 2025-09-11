@@ -95,7 +95,7 @@ const ItemDialog: React.FC<ItemDialogProps> = ({
         </h2>
         
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Title */}
+          {/*
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Content:
@@ -114,6 +114,7 @@ const ItemDialog: React.FC<ItemDialogProps> = ({
               <p className="text-red-500 text-sm mt-1">{errors.title}</p>
             )}
           </div>
+          */}
 
           {/* Content */}
           <div>

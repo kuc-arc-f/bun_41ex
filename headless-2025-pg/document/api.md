@@ -49,10 +49,11 @@ start();
 
 * curl sample
 * your-key: API_KEY 
+* content: data type
 * id: id data
 
 ```
-curl -H "Authorization: your-key" http://localhost:3000/api/data/getone?id=0facf5c6-9189-4c0a-a8e6-c2b29312c5a7
+curl -H "Authorization: your-key" "http://localhost:3000/api/data/getone?content=test2&id=e9723af2-4a3f-45e2-8f07-9055d91ae9f8"
 ```
 
 ***
@@ -113,13 +114,16 @@ start();
 
 * curl sample
 * your-key: API_KEY 
+* content: data type
 * id: id data
 
 * data.json
 ```
 {
-  "id": "7b542eb7-5012-4c17-8ad1-c0e747a39e05" 
+  "content": "test2",
+  "id": "7b542eb7-5012-4c17-8ad1-c0e747a39e05"
 }
+
 ```
 * curl
 ```
@@ -132,8 +136,9 @@ curl -X POST -H "Content-Type: application/json" -H "Authorization: your-key" -d
 const start = async function() {
   try{
       const item = {
-        id: "70122f43-6e7d-4825-852d-7185185c827e"
-      }
+        content: "test2",
+        id: "ddccd2b3-cfb2-40a0-ad83-5257e45a1268"
+      }      
       const response = await fetch("http://localhost:3000/api/data/delete", {
       method: 'POST',
       headers: {

@@ -2,6 +2,7 @@ import express from 'express';
 const router = express.Router();
 import axios from 'axios';
 import { PGlite } from '@electric-sql/pglite'
+import hcmUtil from "../lib/hcmUtil";
 
 /**
 *
@@ -14,6 +15,10 @@ router.get('/list', async function(req: any, res: any) {
   try {
     //console.log(req.query);
     const content = req.query.content;
+    if(!content){
+      console.log("error, no content");
+      return res.json({ret:400 , data:{}});
+    }    
     let get_order = req.query.order;
     let order_sql = "ASC";
 
@@ -22,9 +27,9 @@ router.get('/list', async function(req: any, res: any) {
     if(get_order !== "asc"){
       order_sql = "DESC";
     }
-    const sql = `SELECT id, content, data ,created_at, updated_at 
-      FROM hcm_data
-      WHERE content = '${content}' ORDER BY created_at ${order_sql};  
+    const sql = `SELECT id, data ,created_at, updated_at 
+      FROM ${content}
+      ORDER BY created_at ${order_sql};  
     `;
     console.log("dbg=" , sql)
 
@@ -50,8 +55,16 @@ router.get('/getone', async function(req: any, res: any) {
   try {
     const id = req.query.id;
     console.log("id=" , id)
+    const content = req.query.content;
+    if(!content){
+      console.log("error, no content");
+      return res.json({ret:400 , data:{}});
+    }
+    console.log("content=" , content)
+    const tablename = content;
+
     const ret = await db.query(`
-      SELECT * FROM hcm_data WHERE id='${id}';
+      SELECT * FROM ${tablename} WHERE id='${id}';
     `)
     let out = [];
     if(ret.rows[0]){
@@ -72,9 +85,21 @@ router.post('/create', async function(req: any, res: any) {
   try {
     const body = req.body;
     console.log(body);
+    if(!body.content){
+      console.log("error, no content");
+      return res.json({ret:400 , data:{}});
+    }
+    const tablename = body.content.trim();
+    const resTabble = await hcmUtil.isTableExists(db, tablename);
+    console.log("resTabble=", resTabble);
+    if(resTabble === false){
+      const resCreate = await hcmUtil.createTable(db, tablename);
+      console.log("resCreate=", resCreate);
+    }
+
     await db.exec(`
-    INSERT INTO hcm_data (content, data) 
-    VALUES ('${body.content}', '${body.data}')
+    INSERT INTO ${tablename} (data) 
+    VALUES ('${body.data}')
     `);
     db.close();
     return res.json({ret:200 , data:{}});
@@ -90,10 +115,16 @@ router.post('/delete', async function(req: any, res: any) {
   try {
     const body = req.body;
     console.log(body);
-    await db.exec(`
-     DELETE FROM hcm_data where id = '${body.id}'; 
-    `
-    );
+    if(!body.content){
+      console.log("error, no content");
+      return res.json({ret:400 , data:{}});
+    }    
+    const tablename = body.content.trim();
+    const sql = `
+     DELETE FROM ${tablename} where id = '${body.id}'; 
+    `;
+    console.log(sql);
+    await db.exec(sql);
     db.close();
     res.send({ret: 200, text: ""});
   } catch (error) {
@@ -109,8 +140,12 @@ router.post('/update', async function(req: any, res: any) {
   try {
     const body = req.body;
     console.log(body);
-
-    await db.exec(`UPDATE hcm_data 
+    if(!body.content){
+      console.log("error, no content");
+      return res.json({ret:400 , data:{}});
+    }
+    const tablename = body.content.trim();
+    await db.exec(`UPDATE ${tablename} 
     SET data = '${body.data}'
     WHERE id = '${body.id}';
     `);

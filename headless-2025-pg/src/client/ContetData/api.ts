@@ -11,7 +11,7 @@ export const itemsApi = {
     }
     let json = await response.json();
     const items = dataUtil.getDataItems(json.data);
-    console.log(items);
+    console.log(json);
     return items;
   },
 

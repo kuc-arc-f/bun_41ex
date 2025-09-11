@@ -19,7 +19,7 @@ function App() {
     try {
       setLoading(true);
       const data = await itemsApi.getAll(contentId);
-      //console.log(data);
+      console.log(data);
       setItems(data);
     } catch (err) {
       setError('アイテムの取得に失敗しました');
