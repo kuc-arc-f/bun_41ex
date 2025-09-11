@@ -13,6 +13,7 @@ SQLite + Bun , Headless CMS ,
 ***
 ### API document
 
+https://github.com/kuc-arc-f/bun_41ex/blob/main/headless-sqlite/document/api.md
 
 ***
 ### setup
