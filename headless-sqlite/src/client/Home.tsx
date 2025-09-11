@@ -112,12 +112,12 @@ function App() {
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {items.map((item) => (
-                      <tr key={item.tablename}>
+                      <tr key={item.name}>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                          {item.tablename}
+                          {item.name}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                          <a href={`/data?content=${item.tablename}`}>
+                          <a href={`/data?content=${item.name}`}>
                             <button
                               className="text-indigo-600 hover:text-indigo-900 mr-4"
                             >

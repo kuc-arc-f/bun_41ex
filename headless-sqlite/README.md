@@ -20,10 +20,13 @@ https://github.com/kuc-arc-f/bun_41ex/blob/main/headless-sqlite/document/api.md
 * .env
 * DB_FILE_NAME: db file name 
 * API_KEY: API auth key
+* USER_NAME , PASSWORD: login name ,password
 
 ```
 API_KEY=1234
 DB_FILE_NAME=file:local.db
+USER_NAME = "user1@example.com"
+PASSWORD = "123"
 ```
 
 ***

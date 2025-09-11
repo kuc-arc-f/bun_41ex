@@ -8,7 +8,7 @@ const app = express();
 
 import Top from './pages/App';
 import hcmdataRouter from './routes/hcm_data';
-//import hcmadminRouter from './routes/hcm_admin';
+import hcmadminRouter from './routes/hcm_admin';
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -52,7 +52,7 @@ app.use('/*', function(req, res, next) {
 
 // API
 app.use('/api/data', hcmdataRouter);
-//app.use('/api/admin', hcmadminRouter);
+app.use('/api/admin', hcmadminRouter);
 
 app.post('/api/user/login', async function(req: any, res: any) {
   const retObj = {ret: 500, data: null};
