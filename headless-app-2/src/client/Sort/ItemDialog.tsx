@@ -106,7 +106,7 @@ const ItemDialog: React.FC<ItemDialogProps> = ({
               age
             </label>
             <input
-              type="text"
+              type="number"
               name="age"
               value={formData.age}
               onChange={handleInputChange}
@@ -118,7 +118,7 @@ const ItemDialog: React.FC<ItemDialogProps> = ({
               weight
             </label>
             <input
-              type="text"
+              type="number"
               name="weight"
               value={formData.weight}
               onChange={handleInputChange}

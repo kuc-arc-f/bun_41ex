@@ -57,8 +57,8 @@ function App() {
   // 編集ダイアログを開く
   const handleEdit = (item: Item) => {
     console.log(item);
-    item.title = item.data.title;
-    item.description = item.data.description;
+    //item.title = item.data.title;
+    //item.description = item.data.description;
     setDialogMode('edit');
     setEditingItem(item);
     setDialogOpen(true);
@@ -229,14 +229,13 @@ function App() {
                           {item.weight}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                          {/*
                           <button
                             onClick={() => handleEdit(item)}
                             className="text-indigo-600 hover:text-indigo-900 mr-4"
                           >
                             編集
                           </button>
-                          */}
+
                           <button
                             onClick={() => handleDelete(item.id)}
                             className="text-red-600 hover:text-red-900"
