@@ -10,6 +10,7 @@ import Todo13 from './client/Todo13';
 import Sort from './client/Sort';
 import Table from './client/Table';
 import Table1 from './client/Table1';
+import Table2 from './client/Table2';
 
 function Home() {
   return (
@@ -31,6 +32,7 @@ function App() {
       <Route path="/sort" element={<Sort />} />
       <Route path="/table" element={<Table />} />
       <Route path="/table1" element={<Table1 />} />
+      <Route path="/table2" element={<Table2 />} />
     </Routes>
   );
 }

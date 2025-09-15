@@ -4,7 +4,7 @@ const dbUtil = {
   init: async function() {
     try{
       const sql = await initSqlJs({
-          locateFile: file => `https://cdn.jsdelivr.net/npm/sql.js@1.13.0/dist/${file}`
+        locateFile: file => `https://cdn.jsdelivr.net/npm/sql.js@1.13.0/dist/${file}`
       });
       const sqldb = new sql.Database();
       sqldb.run(`CREATE TABLE IF NOT EXISTS items (

@@ -29,8 +29,8 @@ router.post('/list', async function(req: any, res: any) {
       throw new Error("Error, res.ok = NG");
     }
     const json = await response.json();
-    //console.log(json)   
-    res.send({ret: 200, data: json});
+    console.log(json)   
+    res.send({ret: 200, data: json.data});
   } catch (error) {
     console.error(error);
     res.sendStatus(500);
